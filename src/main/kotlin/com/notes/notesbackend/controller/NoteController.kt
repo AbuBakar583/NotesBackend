@@ -3,7 +3,9 @@ package com.notes.notesbackend.controller
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import com.notes.notesbackend.database.model.Note
 import com.notes.notesbackend.database.repository.NoteRepository
+import jakarta.validation.constraints.NotBlank
 import org.bson.types.ObjectId
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -27,6 +29,7 @@ class NoteController(private val noteRepository: NoteRepository) {
 
     data class NoteRequest(
         val id: String?,
+        @NotBlank(message = "Title cant't be blank.")
         val title: String,
         val content: String,
         val color: Long
@@ -42,6 +45,10 @@ class NoteController(private val noteRepository: NoteRepository) {
 
     @PostMapping
     fun save(@RequestBody body: NoteRequest): NoteResponse {
+
+        val ownerId = SecurityContextHolder.getContext().authentication.principal as String
+
+
         val note = noteRepository.save<Note>(
             Note(
                 id = body.id?.let { ObjectId(it) } ?: ObjectId.get(),
@@ -49,7 +56,7 @@ class NoteController(private val noteRepository: NoteRepository) {
                 content = body.title,
                 color = body.color,
                 createdAt = Instant.now(),
-                ownerId = ObjectId()
+                ownerId = ObjectId(ownerId)
 
             )
 
@@ -60,7 +67,8 @@ class NoteController(private val noteRepository: NoteRepository) {
 
 
     @GetMapping
-    fun findByOwnerId(@RequestParam(required = true) ownerId: String): List<NoteResponse> {
+    fun findByOwnerId(): List<NoteResponse> {
+        val ownerId = SecurityContextHolder.getContext().authentication.principal as String
         return noteRepository.findByOwnerId(ObjectId(ownerId)).map { note ->
             note.toResponse()
 
@@ -70,6 +78,15 @@ class NoteController(private val noteRepository: NoteRepository) {
 
     @DeleteMapping(path = ["/{id}"])
     fun deleteById(@PathVariable id: String) {
+        val note = noteRepository.findById((ObjectId(id))).orElseThrow() {
+            IllegalArgumentException("Note not found")
+        }
+        val ownerId = SecurityContextHolder.getContext().authentication.principal as String
+        if (note.ownerId.toHexString() == ownerId) {
+            noteRepository.deleteById(ObjectId(id))
+
+        }
+
         noteRepository.deleteById(ObjectId(id))
     }
 

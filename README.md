@@ -65,8 +65,6 @@ Body:
 
 Response Example: 200 OK
 
-![Screenshot](https://github.com/AbuBakar583/NotesBackend/tree/main/screenshots/addnotes-api.png?raw=true)
-
 🔐 Login User
 
 POST /auth/login
@@ -86,8 +84,6 @@ Response:
   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
 }
 
-![Screenshot](https://github.com/AbuBakar583/NotesBackend/tree/main/screenshots/login-api.png?raw=true)
-
 🔄 Refresh Token
 
 POST /auth/refresh
@@ -105,8 +101,6 @@ Response:
  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI...",
   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
 }
-
-![Screenshot](https://github.com/AbuBakar583/NotesBackend/tree/main/screenshots/refresh-api.png?raw=true)
 
 🗒️ Notes APIs (Authorized)
 ➕ Create Note
@@ -136,8 +130,6 @@ Response:
   "color": 123456
 }
 
-![Screenshot](https://github.com/AbuBakar583/NotesBackend/tree/main/screenshots/addnotes-api.png?raw=true)
-
 📋 Get All Notes
 
 GET /notes
@@ -153,11 +145,8 @@ Response Example:
   }
 ]
 
-![Screenshot](https://github.com/AbuBakar583/NotesBackend/tree/main/screenshots/getnotes-api.png?raw=true)
-
 🗑️ Delete Note
 
 DELETE /notes/{id}
 
-![Screenshot](https://github.com/AbuBakar583/NotesBackend/tree/main/screenshots/deletenote-api.png?raw=true)
 

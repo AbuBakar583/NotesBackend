@@ -6,29 +6,32 @@ It provides secure authentication using JWT (access & refresh tokens) and CRUD A
 ---
 
 ## 🚀 Features
-- User registration & login  
-- JWT authentication (Access + Refresh tokens)  
-- Create, Read, Update, Delete notes  
-- MongoDB persistence  
-- RESTful API design  
-- Error handling with custom responses  
+
+- User registration & login
+- JWT authentication (Access + Refresh tokens)
+- Create, Read, Update, Delete notes
+- MongoDB persistence
+- RESTful API design
+- Error handling with custom responses
 
 ---
 
 ## 🧠 Tech Stack
-| Layer | Technology |
-|-------|-------------|
-| Language | Kotlin |
-| Framework | Spring Boot |
-| Database | MongoDB |
-| Authentication | JWT |
-| IDE | IntelliJ IDEA |
+
+| Layer          | Technology    |
+|----------------|---------------|
+| Language       | Kotlin        |
+| Framework      | Spring Boot   |
+| Database       | MongoDB       |
+| Authentication | JWT           |
+| IDE            | IntelliJ IDEA |
 
 ---
 
 ## ⚙️ Setup & Run
 
 ### Clone the repository
+
 ```bash
 1️⃣
 git clone https://github.com/AbuBakar583/NotesBackend.git
@@ -62,6 +65,8 @@ Body:
 
 Response Example: 200 OK
 
+![Screenshot](screenshots/register-api.png)
+
 🔐 Login User
 
 POST /auth/login
@@ -81,6 +86,8 @@ Response:
   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
 }
 
+![Screenshot](screenshots/login-api.png)
+
 🔄 Refresh Token
 
 POST /auth/refresh
@@ -98,6 +105,8 @@ Response:
  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI...",
   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
 }
+
+![Screenshot](screenshots/refresh-api.png)
 
 🗒️ Notes APIs (Authorized)
 ➕ Create Note
@@ -127,6 +136,8 @@ Response:
   "color": 123456
 }
 
+![Screenshot](screenshots/addnotes-api.png)
+
 📋 Get All Notes
 
 GET /notes
@@ -142,7 +153,11 @@ Response Example:
   }
 ]
 
+![Screenshot](screenshots/getnotes-api.png)
+
 🗑️ Delete Note
 
 DELETE /notes/{id}
+
+![Screenshot](screenshots/deletenote-api.png)
 
